@@ -1,0 +1,5 @@
+/* Keep every value in a converted laps table on one line (e.g. "12 ft" elevation, "Active recovery"). */
+table:has([data-stm-distance]) td,
+[role="row"]:has([data-stm-distance]) > * {
+  white-space: nowrap;
+}

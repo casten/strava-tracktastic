@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Strava Tracktastic",
+  "version": "1.0.0",
+  "description": "Shows Strava lap and interval distances in meters, rounded to the nearest 50 m, for track workouts.",
+  "author": "Casten Riepling",
+  "homepage_url": "https://github.com/casten/strava-tracktastic",
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.strava.com/activities/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "Strava Tracktastic",
+    "default_popup": "popup.html"
+  }
+}
