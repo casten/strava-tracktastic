@@ -4,17 +4,15 @@ Last updated: November 7, 2026
 
 Tracktastic for Strava is a browser extension that changes how lap distances and paces are displayed on Strava activity pages in your own browser.
 
-## What it collects
+## Data it handles
 
-Nothing. The extension does not collect, transmit, sell or share any personal information or activity data. It does not use analytics, tracking, cookies or remote servers.
+**Website content.** On `https://www.strava.com/activities/*` pages you open, the extension reads the lap distances and paces shown on the page, only to change how they're displayed. This happens entirely in your browser: page content is not saved, and is never transmitted or shared.
 
-## What it stores
+**Your settings.** Your settings (for example the rounding step and recovery paces) and your per-activity on/off choices, stored as an activity ID with an on/off value, are saved using Chrome's built-in extension storage. Settings may sync between your own Chrome browsers if you use Chrome sync. This data is not accessible to the developer.
 
-Your settings (for example the rounding step and recovery paces) and your per-activity on/off choices are saved using Chrome's built-in extension storage. Settings may sync between your own Chrome browsers if you use Chrome sync. This data never leaves Chrome's storage and is not accessible to the developer.
+## What it doesn't do
 
-## What it accesses
-
-The extension reads the content of `https://www.strava.com/activities/*` pages you open, only to find distances and paces and change how they're displayed. That information stays in your browser.
+The extension does not collect personal, health, location or browsing information. It does not transmit, sell or share any data, and does not use analytics, tracking, cookies or remote servers.
 
 ## Contact
 

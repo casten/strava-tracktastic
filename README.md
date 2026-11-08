@@ -47,7 +47,7 @@ Click the extension's icon:
 
 ## Privacy
 
-The extension runs only on `strava.com/activities` pages, changes what's displayed in your browser, and stores only your settings in Chrome. It collects and sends no data. See [PRIVACY.md](PRIVACY.md).
+The extension runs only on `strava.com/activities` pages. It reads the lap distances and paces on the page to change how they're displayed, entirely in your browser, and stores only your settings in Chrome. Nothing is sent anywhere. See [PRIVACY.md](PRIVACY.md).
 
 ## If something isn't converted
 
