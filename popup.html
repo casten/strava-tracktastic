@@ -4,21 +4,22 @@
   <meta charset="utf-8">
   <style>
     body { font: 13px system-ui, sans-serif; width: 240px; margin: 12px; color: #222; }
-    h1 { font-size: 14px; margin: 0 0 10px; color: #fc4c02; }
+    h1 { font-size: 14px; margin: 0 0 10px; color: #c94a24; }
     label { display: flex; justify-content: space-between; align-items: center; margin: 8px 0; gap: 8px; }
     input[type=number], select { width: 80px; }
     p { color: #666; font-size: 11px; margin: 10px 0 0; }
     #page { background: #f4f4f4; border-radius: 6px; padding: 4px 8px 8px; margin-bottom: 10px; }
     #page label { font-weight: 600; }
     #pageStatus { margin: 0; }
-    #pageReset { color: #fc4c02; cursor: pointer; text-decoration: underline; }
+    #pageReset { color: #c94a24; cursor: pointer; text-decoration: underline; }
     footer { margin-top: 12px; padding-top: 8px; border-top: 1px solid #e3e3e3; font-size: 11px; color: #666; text-align: center; }
-    footer a { color: #fc4c02; }
+    footer a { color: #c94a24; }
+    footer .disclaimer { color: #999; font-size: 10px; }
     hr { border: 0; border-top: 1px solid #e3e3e3; margin: 10px 0; }
   </style>
 </head>
 <body>
-  <h1>Strava Tracktastic</h1>
+  <h1>Tracktastic for Strava</h1>
   <div id="page" hidden>
     <label>Convert this activity <input type="checkbox" id="pageConvert"></label>
     <p id="pageStatus"></p>
@@ -48,7 +49,7 @@
   </label>
   <p>Longer distances (like the activity total) are left as-is. Changes reload the Strava tab.</p>
   <p>A track workout is detected from 3+ fast laps at track distances (200, 400, 800 m…) with recovery laps, or a title like "8x400" or "Track".</p>
-  <footer>Made by <a href="https://www.linkedin.com/in/casten/" target="_blank" rel="noopener noreferrer">Casten Riepling</a> w/ help from Claude<br><a href="https://github.com/casten/strava-tracktastic" target="_blank" rel="noopener noreferrer">Source on GitHub</a></footer>
+  <footer>Made by <a href="https://www.linkedin.com/in/casten/" target="_blank" rel="noopener noreferrer">Casten Riepling</a> w/ help from Claude<br><a href="https://github.com/casten/strava-tracktastic" target="_blank" rel="noopener noreferrer">Source on GitHub</a><br><span class="disclaimer">Not affiliated with Strava, Inc.</span></footer>
   <script src="popup.js"></script>
 </body>
 </html>

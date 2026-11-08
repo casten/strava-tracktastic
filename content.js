@@ -1,4 +1,4 @@
-// Strava Tracktastic — rewrites km/mi distances to meters rounded to the nearest step (default 50 m).
+// Tracktastic for Strava — rewrites km/mi distances to meters rounded to the nearest step (default 50 m).
 // Made by Casten Riepling (https://www.linkedin.com/in/casten/) w/ help from Claude.
 // Source: https://github.com/casten/strava-tracktastic
 (() => {
