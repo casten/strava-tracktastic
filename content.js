@@ -145,33 +145,56 @@
     return /\/\s*km|km/i.test(headers[idx].textContent) ? sec * KM_PER_MI : sec;
   }
 
-  // Which label a lap gets from its pace: "Rest" (slowest), "Active recovery" (middle band), or none.
-  function labelForPace(pace) {
-    if (settings.restEnabled && pace > settings.restPaceSec) {
-      return { text: "Rest", tip: "rest", opacity: "0.6" };
-    }
+  const LABELS = {
+    rest: { text: "Rest", tip: "rest", opacity: "0.6" },
+    recovery: { text: "Active recovery", tip: "active recovery", opacity: "0.8" },
+    warmup: { text: "Warmup", tip: "warmup", opacity: "0.8" },
+    cooldown: { text: "Cooldown", tip: "cooldown", opacity: "0.8" },
+  };
+
+  // What kind of lap this is from its pace: "rest" (slowest), "recovery" (middle band), or "fast".
+  function kindForPace(pace) {
+    if (settings.restEnabled && pace > settings.restPaceSec) return "rest";
     const recoveryTop = settings.restEnabled ? settings.restPaceSec : Infinity;
-    if (settings.recoveryEnabled && pace > settings.recoveryPaceSec && pace <= recoveryTop) {
-      return { text: "Active recovery", tip: "active recovery", opacity: "0.8" };
-    }
-    return null;
+    if (settings.recoveryEnabled && pace > settings.recoveryPaceSec && pace <= recoveryTop) return "recovery";
+    return "fast";
   }
 
-  function applyRest(row) {
-    if (row.closest("thead")) return;
-    const cells = row.querySelectorAll("[data-stm-distance]:not([data-stm-rest])");
-    if (!cells.length) return;
+  // Classifies a lap row once, by its pace.
+  function classifyRow(row) {
+    if (row.dataset.stmKind || row.closest("thead")) return;
+    if (!row.querySelector("[data-stm-distance]")) return;
     const pace = rowPaceSecPerMile(row);
     if (pace == null) return;
-    const label = labelForPace(pace);
-    if (!label) return;
-    cells.forEach((cell) => {
-      cell.dataset.stmRest = "1";
+    row.dataset.stmKind = kindForPace(pace);
+  }
+
+  function showLabel(row, kind) {
+    if (row.dataset.stmShown === kind) return;
+    row.dataset.stmShown = kind;
+    const label = LABELS[kind];
+    row.querySelectorAll("[data-stm-distance]").forEach((cell) => {
       cell.title = `${fmt(Number(cell.dataset.stmDistance))} m (${label.tip})`;
       cell.textContent = label.text;
       cell.style.fontStyle = "italic";
     });
     row.style.opacity = label.opacity;
+  }
+
+  // Labels every lap in one table. Active recovery laps before the first faster or Rest lap
+  // show as "Warmup", and those after the last one show as "Cooldown". This is rechecked
+  // whenever rows are added, since a lap that was last may no longer be.
+  function labelTable(container) {
+    const rows = [...container.querySelectorAll(ROW_SEL)].filter((r) => r.dataset.stmKind);
+    const kinds = rows.map((r) => r.dataset.stmKind);
+    const shown = kinds.slice();
+    if (kinds.some((k) => k !== "recovery")) {
+      for (let i = 0; i < kinds.length && kinds[i] === "recovery"; i++) shown[i] = "warmup";
+      for (let i = kinds.length - 1; i >= 0 && kinds[i] === "recovery"; i--) shown[i] = "cooldown";
+    }
+    rows.forEach((row, i) => {
+      if (shown[i] !== "fast") showLabel(row, shown[i]);
+    });
   }
 
   function processRests(root) {
@@ -181,7 +204,12 @@
     const rows = new Set(el.querySelectorAll(ROW_SEL));
     const own = el.closest && el.closest(ROW_SEL);
     if (own) rows.add(own);
-    rows.forEach(applyRest);
+    const tables = new Set();
+    rows.forEach((row) => {
+      classifyRow(row);
+      if (row.dataset.stmKind) tables.add(row.closest("table, [role=table], [role=grid]") || row.parentElement);
+    });
+    tables.forEach(labelTable);
   }
 
   function processTextNode(node) {

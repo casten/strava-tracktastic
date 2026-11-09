@@ -13,6 +13,7 @@ On a Strava activity page that looks like a track workout:
 - **Distances in meters.** `0.25 mi` → `400 m`, `0.40 km` → `400 m`, `1.00 mi` → `1,600 m`.
 - **Pace stays in min/mile.** Pace shown per km is converted to per mile.
 - **Recovery laps labeled.** Laps between 9:00 and 12:00 /mi show as *Active recovery*; slower than 12:00 /mi show as *Rest*.
+- **Warmup and cooldown.** Active recovery laps at the start of the workout show as *Warmup*, and those at the end show as *Cooldown*.
 - **Only on track workouts.** It turns on when there are 3+ fast laps at track distances (200, 400, 800, 1600 m…) with recovery laps, or when the title says something like "8x400" or "Track". Steady runs are left alone.
 
 Elevation, speed and the activity total are never changed.
